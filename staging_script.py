@@ -1,8 +1,12 @@
 import mysql.connector
 from mysql.connector import errorcode
 import csv
+import logging
 
 csv_file='etl_data.csv'
+
+# logging config
+logging.basicConfig(level=logging.INFO, filename='log_file.log', format='%(asctime)s - %(levelname)s - %(message)s')
 
 def staging(csv_file):
     try:
@@ -18,14 +22,11 @@ def staging(csv_file):
     else:
         cur = conn.cursor()
         print('loading...')
-        csv_insert='insert into weather_data (Name,Date, Time,Temperature,Description,Humidity,Vision,Wind,UV_index,Air_quality) \
-        values \
-        (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-        select='select * from weather_data'
+        
         with open(csv_file, 'r', encoding='utf-8') as csvfile:
             csv_data=csv.reader(csvfile)
             for row in csv_data:
-                cur.execute(csv_insert, row)
+                cur.callproc('insert_data' , row)
 
         cur.close()
         conn.close()
