@@ -1,5 +1,3 @@
-from concurrent.futures import thread
-from dataclasses import dataclass
 import mysql.connector
 import mysql.connector.errorcode as errcode
 import requests
@@ -11,11 +9,22 @@ import os
 from pathlib import Path
 from ftplib import FTP
 
+csvfolder=Path('d:/VSCode/DataWarehouse/csvfile')
+extract_path = csvfolder / (datetime.now().strftime('%Y%m%d%H%M')+"_extracted_data.csv")
+preprocess_path=csvfolder / (datetime.now().strftime('%Y%m%d%H%M')+"_preprocessed_data.csv")
+
+ftpfolder='/DW'
+dirname='csvfile_' + datetime.now().strftime('%Y-%m-%d')
+
 class MyScript1:
 
     def __init__(self,id,author):
         self.id=id
         self.author=author
+        self.extract_filename = str(extract_path)
+        self.preprocess_filename = str(preprocess_path)
+        self._dirname=str(dirname)
+        self.csvfile = ftpfolder + '/' + self._dirname
 
     def add_config(self, source_url, ftp_ip, ftp_user, ftp_pw, ftp_port):
         try:
@@ -111,7 +120,7 @@ class MyScript1:
             except AttributeError as e:   
                 print(e)
             else:
-                data.to_csv(extracted_file,index=False,line_terminator='\n')
+                data.to_csv(self.extract_filename,index=False,line_terminator='\n')
         return data
 
     def preprocess(self, data):
@@ -124,7 +133,7 @@ class MyScript1:
         return data
     
     def load(self, data):
-        data.to_csv(preprocessed_file,index=False,line_terminator='\n',header=False)
+        data.to_csv(self.preprocess_filename,index=False,line_terminator='\n',header=False)
     
     def add_log(self, config, filename):
         try:
@@ -184,71 +193,54 @@ class MyScript1:
             print('Done!')
 
     def ftp_upload_csv(self,config):
-        ftpfolder='/DW'
-        dirname='csvfile_' + datetime.now().strftime('%Y-%m-%d')
-        _dirname=dirname
-        csvfile = ftpfolder + '/' + _dirname
-
         try:
             with FTP(config[2]) as server:
                 server.login(config[3],config[4])
                 server.encoding = 'utf-8'
                 server.cwd(ftpfolder)
         
-                if _dirname not in server.nlst():
-                    server.mkd(csvfile)
-                server.cwd(_dirname)
+                if self._dirname not in server.nlst():
+                    server.mkd(self.csvfile)
+                server.cwd(self._dirname)
                 
-                with open(extract_filename, 'rb') as file:
-                    server.storbinary(f"STOR {os.path.basename(extract_filename)}", file)
-                with open(preprocess_filename, 'rb') as file:
-                    server.storbinary(f"STOR {os.path.basename(preprocess_filename)}", file)
+                with open(self.extract_filename, 'rb') as file:
+                    server.storbinary(f"STOR {os.path.basename(self.extract_filename)}", file)
+                with open(self.preprocess_filename, 'rb') as file:
+                    server.storbinary(f"STOR {os.path.basename(self.preprocess_filename)}", file)
         except Exception as e:
             print(e)
 
     def upload(csvfile):
         pass
   
-if(__name__ == '__main__' ):
-    csvfolder=Path('d:/VSCode/DataWarehouse/csvfile')
 
-    extract_path = csvfolder / (datetime.now().strftime('%Y%m%d%H%M')+"_extracted_data.csv")
-    extract_filename = str(extract_path)
-    print(type(extract_filename))
-
-    extracted_file = open(extract_filename, 'w', encoding='utf8')
-
-    preprocess_path=csvfolder / (datetime.now().strftime('%Y%m%d%H%M')+"_preprocessed_data.csv")
-    preprocess_filename = str(preprocess_path)
-    print(type(preprocess_filename))
-
-    preprocessed_file = open(preprocess_filename, 'w', encoding='utf8')
-
-    myscript1 = MyScript1(1,'Nhan')
-    config = myscript1.get_config()
-    connect = myscript1.connect_source(config)
-    if(connect):
-        try:
-            _thread.start_new_thread(myscript1.add_log, (config, os.path.basename(preprocess_filename),))
-            
-        except Exception as e:
-            print(e)
-        else:
-            extracted = myscript1.extract(config)
-            proprocessed = myscript1.preprocess(extracted)
-            myscript1.load(proprocessed)
-            extracted_file.close()
-            preprocessed_file.close()
-
+myscript1 = MyScript1(1,'Nhan')
+extracted_file = open(myscript1.extract_filename, 'w', encoding='utf8')
+preprocessed_file = open(myscript1.preprocess_filename, 'w', encoding='utf8')
+config = myscript1.get_config()
+connect = myscript1.connect_source(config)
+if connect:
+    try:
+        _thread.start_new_thread(myscript1.add_log, (config, os.path.basename(myscript1.preprocess_filename),))
+        
+    except Exception as e:
+        print(e)
     else:
-        print("cannot connect!")
+        extracted = myscript1.extract(config)
+        proprocessed = myscript1.preprocess(extracted)
+        myscript1.load(proprocessed)
+        extracted_file.close()
+        preprocessed_file.close()
 
-    with open(preprocess_filename, 'r') as file:
-        if os.path.getsize(preprocess_filename) > 0:
-            _thread.start_new_thread(myscript1.update_log_status_re,())
-            myscript1.ftp_upload_csv(config)
-        else:
-            myscript1.update_log_status_er()
+else:
+    print("cannot connect!")
 
-    os.remove(extract_filename)
-    os.remove(preprocess_filename)
+with open(myscript1.preprocess_filename, 'r') as file:
+    if os.path.getsize(myscript1.preprocess_filename) > 0:
+        _thread.start_new_thread(myscript1.update_log_status_re,())
+        myscript1.ftp_upload_csv(config)
+    else:
+        myscript1.update_log_status_er()
+
+os.remove(myscript1.extract_filename)
+os.remove(myscript1.preprocess_filename)
