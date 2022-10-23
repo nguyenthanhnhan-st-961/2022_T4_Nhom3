@@ -210,9 +210,6 @@ class MyScript1:
         except Exception as e:
             print(e)
 
-    def upload(csvfile):
-        pass
-  
 
 myscript1 = MyScript1(1,'Nhan')
 extracted_file = open(myscript1.extract_filename, 'w', encoding='utf8')
