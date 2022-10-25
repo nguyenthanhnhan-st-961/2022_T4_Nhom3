@@ -1,7 +1,6 @@
 from ftplib import FTP
 import mysql.connector
 import mysql.connector.errorcode as errcode
-from MyScript1 import MyScript1
 from datetime import datetime
 import csv
 import os
@@ -87,7 +86,6 @@ class MyScript2:
         pass
 
 myscript2 = MyScript2(1)
-# myscript1 = MyScript1(1, 'Nhan')
 
 config = myscript2.get_config()
 print(config)
