@@ -128,15 +128,15 @@ class Script2:
         finally:
             cur.close()
 
-script2 = Script2('nhannguyen','admin',1)
+script2 = Script2('nhannguyen','123123',1)
 conn_control = script2.connected_db_control()
-config = script2.get_config(conn_control)
-conn_staging = script2.connected_db_staging(config)
 
 if(conn_control != None):
     status = script2.get_status_file(conn_control)
     if(status[1].__eq__('re')):
+        config = script2.get_config(conn_control)
         file = script2.ftp_download_csv(config, status[0])
+        conn_staging = script2.connected_db_staging(config)
         if(conn_staging != None):
             script2.load_staging_raw(conn_staging, file)
             script2.transform1(conn_staging)
