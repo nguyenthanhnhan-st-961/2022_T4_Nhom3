@@ -96,7 +96,7 @@ class Script1:
         except Exception as e:
             print(e)
         else:
-            data.to_csv(self.extract_filename,index=False,line_terminator='\n')
+            data.to_csv(self.extract_filename,index=False,lineterminator='\n')
         return data
 
     def preprocess(self, data):
@@ -107,7 +107,7 @@ class Script1:
         data['Vision']=data['Vision'].transform(lambda x : float(x.split(" ")[0])) 
         data['Wind']=data['Wind'].transform(lambda x : float(x.split(" ")[0]))
 
-        data.to_csv(self.preprocess_filename,index=False,line_terminator='\n',header=False)
+        data.to_csv(self.preprocess_filename,index=False,lineterminator='\n',header=False)
 
     def add_log(self, conn):
         try:
@@ -157,7 +157,7 @@ class Script1:
        
 
 
-script1 = Script1('nhannguyen', 'admin', 1, 'Nhan')
+script1 = Script1('nhannguyen', '123123', 1, 'Nhan')
 conn = script1.connected_db_control()
 
 if conn != None:
