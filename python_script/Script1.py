@@ -154,8 +154,6 @@ class Script1:
                     server.storbinary(f"STOR {os.path.basename(self.preprocess_filename)}", file)
         except Exception as e:
             print(e)
-       
-
 
 script1 = Script1('nhannguyen', '123123', 1, 'Nhan')
 conn = script1.connected_db_control()

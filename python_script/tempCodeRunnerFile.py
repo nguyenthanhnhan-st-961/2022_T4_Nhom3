@@ -1,2 +1,1 @@
-
-os.remove(script1.preprocess_filename)
+script2 = Script2('nhannguyen','123123',1)
