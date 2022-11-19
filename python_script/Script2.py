@@ -29,7 +29,7 @@ class Script2:
             else:
                 print(err)
         else:
-            return conn
+            return conn   
     
     def get_status_file(self, conn_control):
         result = None
@@ -118,6 +118,39 @@ class Script2:
         finally:
             cur.close()
 
+    def load_staging_dim_date(self, conn_staging, file_date):
+        try:
+            cur = conn_staging.cursor()
+            with open(file_date, 'r', encoding='utf-8') as csvfile:
+                csv_data=csv.reader(csvfile)
+                for row in csv_data:
+                    cur.callproc('load_staging_dim_date' , row)
+        except Exception as e:
+            print(e)
+        finally:
+            cur.close()
+    
+    def load_staging_dim_time(self, conn_staging, file_time):
+        try:
+            cur = conn_staging.cursor()
+            with open(file_time, 'r', encoding='utf-8') as csvfile:
+                csv_data=csv.reader(csvfile)
+                for row in csv_data:
+                    cur.callproc('load_staging_dim_time' , row)
+        except Exception as e:
+            print(e)
+        finally:
+            cur.close()
+
+    def load_staging_dim_province(self,conn_staging):
+        try:
+            cur = conn_staging.cursor()
+            cur.callproc('load_staging_dim_province')
+        except Exception as e:
+            print(e)
+        finally:
+            cur.close()
+            
     def load_staging_fact_weather(self, conn_staging):
         try:
             cur = conn_staging.cursor()
@@ -130,6 +163,8 @@ class Script2:
 
 script2 = Script2('nhannguyen','123123',1)
 conn_control = script2.connected_db_control()
+file_date=r'D:\VSCode\DataWarehouse\csvfile\date_dim_without_quarter.csv'
+file_time=r'D:\VSCode\DataWarehouse\csvfile\dim_time.csv'
 
 if(conn_control != None):
     status = script2.get_status_file(conn_control)
@@ -141,7 +176,12 @@ if(conn_control != None):
             script2.load_staging_raw(conn_staging, file)
             script2.transform1(conn_staging)
             script2.transform2(conn_staging)
+            script2.load_staging_dim_date(conn_staging, file_date)
+            script2.load_staging_dim_time(conn_staging, file_time)
+            script2.load_staging_dim_province(conn_staging)
             script2.load_staging_fact_weather(conn_staging)
     else:
         print('file got an error or not ready to load')
 os.remove(file)
+conn_control.close()
+conn_staging.close()
