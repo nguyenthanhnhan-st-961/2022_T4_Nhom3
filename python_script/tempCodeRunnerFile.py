@@ -1,1 +1,0 @@
-script2 = Script2('nhannguyen','123123',1)
