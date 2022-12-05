@@ -3,6 +3,7 @@ import mysql.connector as connector
 import mysql.connector.errorcode as errcode
 from datetime import datetime
 import csv
+from pathlib import Path
 import os
 
 ftpfolder='/DW'
@@ -13,7 +14,7 @@ class Script2:
         self.user = user
         self.pw = pw
         self.id = id
-        self.csvfolder=r'D:\VSCode\DataWarehouse\csvfile'
+        self.csvfolder=Path.cwd().joinpath('csvfile')
         self._dirname=str(dirname)
         self.csvfile = ftpfolder + '/' + self._dirname
 
@@ -64,12 +65,7 @@ class Script2:
             ftp.login(config[3], config[4]) 
             ftp.cwd(self.csvfile)
             
-            # lastfile=ftp.nlst()[0]
-            # for file in ftp.nlst():
-            #     info = file.split('_')
-            #     if lastfile.split('_')[0] <= info[0] and info[1].__eq__('preprocessed'):
-            #         lastfile = file
-            filename = self.csvfolder + '/' + lastfile
+            filename = self.csvfolder.joinpath(lastfile)
             with open(filename, 'wb') as file:
                 ftp.retrbinary(f"RETR {lastfile}", file.write)
         return filename
@@ -163,8 +159,9 @@ class Script2:
 
 script2 = Script2('nhannguyen','123123',1)
 conn_control = script2.connected_db_control()
-file_date=r'D:\VSCode\DataWarehouse\csvfile\date_dim_without_quarter.csv'
-file_time=r'D:\VSCode\DataWarehouse\csvfile\dim_time.csv'
+csvfolder=Path.cwd().joinpath('csvfile')
+file_date = csvfolder.joinpath('date_dim_without_quarter.csv')
+file_time = csvfolder.joinpath('dim_time.csv')
 
 if(conn_control != None):
     status = script2.get_status_file(conn_control)
@@ -182,6 +179,6 @@ if(conn_control != None):
             script2.load_staging_fact_weather(conn_staging)
     else:
         print('file got an error or not ready to load')
-os.remove(file)
+Path(file).unlink()
 conn_control.close()
 conn_staging.close()

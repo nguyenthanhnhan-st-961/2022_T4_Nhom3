@@ -6,12 +6,12 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import _thread
 import os
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from ftplib import FTP
 
-csvfolder=Path('d:/VSCode/DataWarehouse/csvfile')
-extract_path = csvfolder / (datetime.now().strftime('%Y%m%d%H%M')+"_extracted_data.csv")
-preprocess_path=csvfolder / (datetime.now().strftime('%Y%m%d%H%M')+"_preprocessed_data.csv")
+csvfolder=Path.cwd().joinpath('csvfile')
+extract_path = csvfolder.joinpath((datetime.now().strftime('%Y%m%d%H%M')+"_extracted_data.csv"))
+preprocess_path = csvfolder.joinpath((datetime.now().strftime('%Y%m%d%H%M')+"_preprocessed_data.csv"))
 
 ftpfolder='/DW'
 dirname='csvfile_' + datetime.now().strftime('%Y-%m-%d')
@@ -22,8 +22,8 @@ class Script1:
         self.pw = pw
         self.id = id
         self.author = author
-        self.extract_filename = str(extract_path)
-        self.preprocess_filename = str(preprocess_path)
+        self.extract_filename = extract_path
+        self.preprocess_filename = preprocess_path
         self._dirname=str(dirname)
         self.csvfile = ftpfolder + '/' + self._dirname
 
@@ -181,5 +181,5 @@ with open(script1.preprocess_filename, 'r') as file:
     else:
         script1.update_log_status_er(conn,)
 conn.close()
-os.remove(script1.extract_filename)
-os.remove(script1.preprocess_filename)
+Path(script1.extract_filename).unlink()
+Path(script1.preprocess_filename).unlink()
