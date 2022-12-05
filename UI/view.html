@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" type="image/png" href="./assest/logo.png" />
+    <title>Dự báo thời tiết</title>
+  </head>
+  <body>
+    <div id="header">
+      <img class="title" src="./assest/text.png" alt="" class="text" />
+    </div>
+    <div class="body">
+      <div class="container">
+        <div class="control">
+          <div class="control__change-date">Thay đổi ngày</div>
+          <div class="control__date">
+            23/10/2022
+            <i class="fa-solid fa-caret-down" style="padding-left: 5px"></i>
+          </div>
+          <button class="button__extract" role="button">
+            Xuất ra file Excel
+          </button>
+        </div>
+        <div style="height: 500px; overflow: auto">
+          <table>
+            <tr>
+              <th class="header__table">Tỉnh</th>
+              <th class="header__table">Ngày</th>
+              <th class="header__table">Thời gian</th>
+              <th class="header__table">Nhiệt độ</th>
+              <th class="header__table">Mô tả chi tiết</th>
+              <th class="header__table">Độ ẩm</th>
+              <th class="header__table">Tầm nhìn</th>
+              <th class="header__table">Tốc độ gió</th>
+              <th class="header__table">Chỉ số UV</th>
+              <th class="header__table">Chất lượng không khí</th>
+            </tr>
+            <tr>
+              <td class="content__table">Hà Giang</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.54</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">1.51 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Kém</td>
+            </tr>
+            <tr>
+              <td class="content__table">Cao Bằng</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">31°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Bắc Kạn</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">30°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">1.78 km/giờ</td>
+              <td class="content__table">7.76</td>
+              <td class="content__table">Kém</td>
+            </tr>
+            <tr>
+              <td class="content__table">Tuyên Quang</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">29°</td>
+              <td class="content__table">Mây rải rác</td>
+              <td class="content__table">0.52</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.16 km/giờ</td>
+              <td class="content__table">7.68</td>
+              <td class="content__table">Trung bình</td>
+            </tr>
+            <tr>
+              <td class="content__table">Thái Nguyên</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">28°</td>
+              <td class="content__table">Bầu trời quang đãng</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">1.41 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Kém</td>
+            </tr>
+            <tr>
+              <td class="content__table">Lạng Sơn</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">28°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.56</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">3.02 km/giờ</td>
+              <td class="content__table">5.95</td>
+              <td class="content__table">Rất kém</td>
+            </tr>
+            <tr>
+              <td class="content__table">Quảng Ninh</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">29°</td>
+              <td class="content__table">Bầu trời quang đãng</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">1.19 km/giờ</td>
+              <td class="content__table">8.09</td>
+              <td class="content__table">Rất kém</td>
+            </tr>
+            <tr>
+              <td class="content__table">Bắc Giang</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">30°</td>
+              <td class="content__table">Bầu trời quang đãng</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">2.91 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Rất kém</td>
+            </tr>
+            <tr>
+              <td class="content__table">Phú Thọ</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">28°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.57</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">1.8 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Lào Cai</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">30°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">1.45 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Điện Biên</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">28°</td>
+              <td class="content__table">Mây cụm</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">1.23 km/giờ</td>
+              <td class="content__table">7.71</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Lai Châu</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">31°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.53</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.18 km/giờ</td>
+              <td class="content__table">6.69</td>
+              <td class="content__table">Tốt</td>
+            </tr>
+            <tr>
+              <td class="content__table">Sơn La</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Yên Bái</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Hoà Bình</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Hà Nội</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Vĩnh Phúc</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Bắc Ninh</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Hải Dương</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Hải Phòng</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Hưng Yên</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Thái Bình</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Hà Nam</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Nam Định</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Ninh Bình</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Thanh Hóa</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Nghệ An</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Hà Tĩnh</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Quảng Bình</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Quảng Trị</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Thừa Thiên Huế</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+            <tr>
+              <td class="content__table">Đà Nẵng</td>
+              <td class="content__table">23/10/2022</td>
+              <td class="content__table">10:00:00 AM</td>
+              <td class="content__table">32°</td>
+              <td class="content__table">Mây thưa</td>
+              <td class="content__table">0.51</td>
+              <td class="content__table">10 km</td>
+              <td class="content__table">0.73 km/giờ</td>
+              <td class="content__table">0</td>
+              <td class="content__table">Khá</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+fetch("http://localhost:8080/api/weather/getAll")
+.then(rest => rest.json())
+.then(data => console.log(data))
+  </script>
+</html>
