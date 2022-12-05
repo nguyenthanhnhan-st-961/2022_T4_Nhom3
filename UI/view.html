@@ -434,4 +434,9 @@
       </div>
     </div>
   </body>
+  <script>
+fetch("http://localhost:8080/api/weather/getAll")
+.then(rest => rest.json())
+.then(data => console.log(data))
+  </script>
 </html>
