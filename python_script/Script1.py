@@ -6,10 +6,12 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import _thread
 import os
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 from ftplib import FTP
 
-csvfolder=Path.cwd().joinpath('csvfile')
+# csvfolder=Path.cwd().parent.joinpath('csvfile')
+csvfolder=Path('/home/nhannguyen/VSCode/2022_T4_Nhom3/csvfile')
+
 extract_path = csvfolder.joinpath((datetime.now().strftime('%Y%m%d%H%M')+"_extracted_data.csv"))
 preprocess_path = csvfolder.joinpath((datetime.now().strftime('%Y%m%d%H%M')+"_preprocessed_data.csv"))
 
