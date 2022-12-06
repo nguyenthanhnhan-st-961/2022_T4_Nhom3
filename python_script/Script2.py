@@ -14,7 +14,7 @@ class Script2:
         self.user = user
         self.pw = pw
         self.id = id
-        self.csvfolder=Path.cwd().joinpath('csvfile')
+        self.csvfolder=Path('/home/nhannguyen/VSCode/2022_T4_Nhom3/csvfile')
         self._dirname=str(dirname)
         self.csvfile = ftpfolder + '/' + self._dirname
 
@@ -159,7 +159,8 @@ class Script2:
 
 script2 = Script2('nhannguyen','123123',1)
 conn_control = script2.connected_db_control()
-csvfolder=Path.cwd().joinpath('csvfile')
+# csvfolder=Path.cwd().parent.joinpath('csvfile')
+csvfolder=Path('/home/nhannguyen/VSCode/2022_T4_Nhom3/csvfile')
 file_date = csvfolder.joinpath('date_dim_without_quarter.csv')
 file_time = csvfolder.joinpath('dim_time.csv')
 
@@ -167,10 +168,10 @@ if(conn_control != None):
     status = script2.get_status_file(conn_control)
     if(status[1].__eq__('re')):
         config = script2.get_config(conn_control)
-        file = script2.ftp_download_csv(config, status[0])
+        ftp_file = script2.ftp_download_csv(config, status[0])
         conn_staging = script2.connected_db_staging(config)
         if(conn_staging != None):
-            script2.load_staging_raw(conn_staging, file)
+            script2.load_staging_raw(conn_staging, ftp_file)
             script2.transform1(conn_staging)
             script2.transform2(conn_staging)
             script2.load_staging_dim_date(conn_staging, file_date)
@@ -179,6 +180,6 @@ if(conn_control != None):
             script2.load_staging_fact_weather(conn_staging)
     else:
         print('file got an error or not ready to load')
-Path(file).unlink()
+Path(ftp_file).unlink()
 conn_control.close()
 conn_staging.close()
