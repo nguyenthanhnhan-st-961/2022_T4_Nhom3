@@ -9,7 +9,7 @@ import os
 from pathlib import Path
 from ftplib import FTP
 
-csvfolder=Path('d:/VSCode/DataWarehouse/csvfile')
+csvfolder=Path(r'C:\Users\Admin\Desktop\DW\2022_T4_Nhom3\csvfile')
 extract_path = csvfolder / (datetime.now().strftime('%Y%m%d%H%M')+"_extracted_data.csv")
 preprocess_path=csvfolder / (datetime.now().strftime('%Y%m%d%H%M')+"_preprocessed_data.csv")
 

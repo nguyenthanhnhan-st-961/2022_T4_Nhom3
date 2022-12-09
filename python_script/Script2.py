@@ -13,7 +13,7 @@ class Script2:
         self.user = user
         self.pw = pw
         self.id = id
-        self.csvfolder=r'D:\VSCode\DataWarehouse\csvfile'
+        self.csvfolder=r'C:\Users\Admin\Desktop\DW\2022_T4_Nhom3\csvfile'
         self._dirname=str(dirname)
         self.csvfile = ftpfolder + '/' + self._dirname
 
@@ -163,8 +163,9 @@ class Script2:
 
 script2 = Script2('nhannguyen','123123',1)
 conn_control = script2.connected_db_control()
-file_date=r'D:\VSCode\DataWarehouse\csvfile\date_dim_without_quarter.csv'
-file_time=r'D:\VSCode\DataWarehouse\csvfile\dim_time.csv'
+csvfolder=r'C:\Users\Admin\Desktop\DW\2022_T4_Nhom3\csvfile'
+file_date=csvfolder+'\date_dim_without_quarter.csv'
+file_time=csvfolder+'\dim_time.csv'
 
 if(conn_control != None):
     status = script2.get_status_file(conn_control)
